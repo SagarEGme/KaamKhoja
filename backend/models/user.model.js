@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-    fullname: {
+    fullName: {
         type: String,
         required: true
     },
@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
     },
     profile: {
         bio: { type: String },
-        skills: [{ type: String }],
+        skills: [{ type: String }], // know why it is of array type. (because we will be using skillsArray later which stores multiple skills in array form.)
         resume: { type: String }, // URL to resume file
         resumeOriginalName: { type: String },
         company: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
