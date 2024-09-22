@@ -12,7 +12,7 @@ export const register = async (req, res) => {
             });
         }
 
-        const user = await User.findOne({email});
+        let user = await User.findOne({email});
         if(user){
             return res.json(400).json({
                 message:"user already exist with this email",
@@ -22,7 +22,7 @@ export const register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password,10);
 
-        await User.create({
+       await User.create({
             fullName,
             email,
             phoneNumber,
@@ -35,6 +35,7 @@ export const register = async (req, res) => {
 
         return res.status(201).json({
             message:"Accoount created successfully.",
+            user,
             sucesss:true,
         })
 
@@ -59,8 +60,6 @@ export const login = async (req,res)=>{
             success:false,
         })
     }
-    console.log("user",user);
-    console.log("password is ",password,"user password ",user.password);
     const isPasswordMatched = await bcrypt.compare(password,user.password);
     if(!isPasswordMatched){
         return res.json({
