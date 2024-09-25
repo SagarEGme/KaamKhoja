@@ -11,10 +11,11 @@ export const register = async (req, res) => {
                 success:false
             });
         }
+        const file=req.file;
 
         let user = await User.findOne({email});
         if(user){
-            return res.json(400).json({
+            return res.status(400).json({
                 message:"user already exist with this email",
                 success:false,
             })

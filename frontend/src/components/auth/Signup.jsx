@@ -11,10 +11,10 @@ import axios from 'axios'
 
 const Signup = () => {
   const [input, setInput] = useState({
-    fullname: "",
+    fullName: "",
     email: "",
     phoneNumber: '',
-    password:"",
+    password: "",
     role: '',
     file: ''
   })
@@ -23,34 +23,38 @@ const Signup = () => {
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
   }
-  const changeFileHandler = (e)=>{
-    setInput({...input,file:e.target.files?.[0]});
+  const changeFileHandler = (e) => {
+    setInput({ ...input, file: e.target.files?.[0] });
   }
 
-  const submitHandler = async (e)=>{
+  const submitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("fullName", input.fullname);
+    formData.append("fullName", input.fullName);
     formData.append("email", input.email);
     formData.append("password", input.password);
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("role", input.role);
-    if(input.file){
+    if (input.file) {
 
       formData.append("file", input.file);
     }
     try {
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
-        headers: { 'Content-Type': "multipart/form-data" },
+        headers: {
+          'Content-Type': "multipart/form-data"
+        },
         withCredentials: true,
-    });
-
-      if(res.data.success){
+      });
+      console.log("response is ", res);
+      if (res?.data.success) {
+        console.log("success signin")
         navigate("/login")
-        toast.success(res.data.message);
+        toast.success(res?.data.message);
       }
     } catch (error) {
-      console.log("error in submitting signup form",error)
+      console.log("error in submitting signup form", error)
+      navigate("/signup")
       toast.error(error.response.data.message)
 
     }
@@ -68,8 +72,8 @@ const Signup = () => {
             <Label>Full Name</Label>
             <Input
               type="text"
-              value={input.fullname}
-              name="fullname"
+              value={input.fullName}
+              name="fullName"
               onChange={changeEventHandler}
               placeholder="Sagar Regmi"
             />
@@ -106,11 +110,11 @@ const Signup = () => {
           <div className="flex items-center justify-between">
             <RadioGroup className="flex items-center gap-4 my-5">
               <div className="flex items-center space-x-2">
-                <Input type="radio" name="role" value="student" checked={input.role==="student"} onChange={changeEventHandler} className="cursor-pointer" />
+                <Input type="radio" name="role" value="student" checked={input.role === "student"} onChange={changeEventHandler} className="cursor-pointer" />
                 <Label htmlFor="r1">Student</Label>
               </div>
               <div className="flex items-center space-x-2 ">
-                <Input type="radio" name="role" value="recruiter" checked={input.role==="recruiter"} onChange={changeEventHandler} className="cursor-pointer" />
+                <Input type="radio" name="role" value="recruiter" checked={input.role === "recruiter"} onChange={changeEventHandler} className="cursor-pointer" />
                 <Label htmlFor="r2">Recruiter</Label>
               </div>
             </RadioGroup>
