@@ -9,14 +9,14 @@ const isAuthenticated = async (req,res,next)=>{
                 success:false,
             })
         }
-        const decode = await jwt.verify(token,process.env.SECRET_KEY);
-        if(!decode){
+        const decodedTokenData = await jwt.verify(token,process.env.SECRET_KEY);
+        if(!decodedTokenData){
             return res.status(401).json({
                 message:"not valid token.",
                 success:false,
             })
         }
-        req.id = decode.userId;
+        req.id = decodedTokenData.userId;
         next();
     } catch (error) {
         console.log("error in authentication", error);

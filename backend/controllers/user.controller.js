@@ -56,8 +56,8 @@ export const login = async (req,res)=>{
     let user = await User.findOne({email}); //before it was const which couldn't be changed further but since it is changed to let we can manipulate it later in our code.
     //never forget to use await in such fetching or finding situation. It took 5 min to debug it.
     if(!user) {
-        return res.status(400).json({
-            message:"No Account with given email found",
+        return res.status(400).json({  // if res.json(400).json({....}) then error as we cant send 2 jsons at the same time.
+            message:"No Account with given email found",  // 10 mins to debug
             success:false,
         })
     }
@@ -88,7 +88,7 @@ export const login = async (req,res)=>{
 
     return res.status(200).cookie("token", token, {maxAge : 1*24*60*60*1000 , httpsOnly:true, sameSite:"strict"}).json({
         message:`welcome back ${user.fullName}`,
-        user, // we are using the same name as in findOne object and the value of this user will be shown in postman along with json message and success. It wasn't compulsary to write but to analyze the db data we used this.
+        user, // we are using the same name as in findOne object(we can write any, but it is written instead of wrting user object directly because we aren't wanting to show password) and the value of this user will be shown in postman along with json message and success. It wasn't compulsary to write but to analyze the db data we used this.
         success:true,
     })
 
@@ -107,7 +107,7 @@ export const updateProfile = async(req,res)=>{
         if(skills) skillsArray = skills.split(",");
 
         const file = req.file;
-        const userId = req.id; // know its explanation later
+        const userId = req.id; // from middleware isAuthenticated ;
         let user = await User.findById(userId);
 
         if(!user) {

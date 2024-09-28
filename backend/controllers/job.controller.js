@@ -13,90 +13,91 @@ export const postJob = async (req, res) => {
         }
 
         const job = await Job.create({
-            title, description, requirements:requirements.split(","), salary:Number(salary), experienceLevel, location, jobType, position, company:companyId, created_by:userId
+            title, description, requirements: requirements.split(","), salary: Number(salary), experienceLevel, location, jobType, position, company: companyId, created_by: userId
         })
 
         return res.status(201).json({
-            message:"job post created successfully.",
+            message: "job post created successfully.",
             job,
-            success:true,
+            success: true,
         })
     } catch (error) {
-        console.log("error in posting job",error);
+        console.log("error in posting job", error);
     }
 }
 
 //for students
-export const getAllJobs = async (req,res)=>{
+export const getAllJobs = async (req, res) => {
     try {
         const keyword = req.query.keyword || "";
         const query = {
-            $or:[
-                {title:{$regex:keyword, $options:"i"}},
-                {description:{$regex:keyword,$options:"i"}}
+            $or: [
+                { title: { $regex: keyword, $options: "i" } },
+                { description: { $regex: keyword, $options: "i" } }
             ]
         }
 
         const jobs = await Job.find(query);
 
-        if(!jobs){
+        if (!jobs) {
             return res.status(400).json({
                 message: "Jobs not found.",
                 success: false,
             })
         }
         return res.status(200).json({
-            message:"Lists of jobs: ",
+            message: "Lists of jobs: ",
             jobs,
-            success:true,
+            success: true,
         })
-        
+
+
     } catch (error) {
-        console.log("error in getting jobs",error);
+        console.log("error in getting jobs", error);
     }
 
 }
 
-export const getJobById = async (req,res) =>{
+export const getJobById = async (req, res) => {
     try {
         const jobId = req.params.id;
         const job = await Job.findById(jobId);
-        if(!job){
+        if (!job) {
             return res.status(400).json({
                 message: "Job not found.",
                 success: false,
             })
         }
         return res.status(200).json({
-            message:"details of job: ",
+            message: "details of job: ",
             job,
-            success:true,
+            success: true,
         })
 
     } catch (error) {
-        console.log("error is getting job by id",error);
-        
+        console.log("error is getting job by id", error);
+
     }
 }
 
-export const getAdminJob = async (req,res)=>{
+export const getAdminJob = async (req, res) => {
     try {
         const adminId = req.id;
-        const job = await Job.findById(adminId);
-        if(!job){
+        const job = await Job.findById({ created_by: adminId });
+        if (!job) {
             return res.status(400).json({
                 message: "Job not found.",
                 success: false,
             })
         }
         return res.status(200).json({
-            message:"details of job posted by admin : ",
+            message: "details of job posted by admin : ",
             job,
-            success:true,
+            success: true,
         })
 
     } catch (error) {
-        console.log("error is getting admin job",error);
+        console.log("error is getting admin job", error);
 
     }
 }

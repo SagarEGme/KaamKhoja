@@ -8,6 +8,9 @@ import { Button } from '../ui/button'
 import { USER_API_END_POINT } from '@/utils/constants'
 import { toast } from 'sonner'
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLoading } from '@/redux/authslice'
+import { Loader2 } from 'lucide-react'
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -19,6 +22,8 @@ const Signup = () => {
     file: ''
   })
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector(store => store.auth);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
@@ -40,9 +45,10 @@ const Signup = () => {
       formData.append("file", input.file);
     }
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
         headers: {
-          'Content-Type': "multipart/form-data"
+          'Content-Type': "multipart/form-data"  // for form data : app.use(express.urlencoded({extended:true}))
         },
         withCredentials: true,
       });
@@ -57,6 +63,8 @@ const Signup = () => {
       navigate("/signup")
       toast.error(error.response.data.message)
 
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -123,7 +131,12 @@ const Signup = () => {
             <Label>Profile</Label>
             <Input type="file" accept="image/*" onChange={changeFileHandler} className="cursor-pointer" />
           </div>
-          <Button type="submit" className="w-full my-4">Signup</Button>
+          {
+            loading ? <Button><Loader2 className='mr-2 h-4 w-full animate-spin' />Please Wait !</Button> : (
+
+              <Button type="submit" className="w-full my-4">Sign up</Button>
+            )
+          }
           <span className="text-sm">Already have an accout?<Link to="/login" className='text-blue-600 hover:underline'>Login</Link></span>
         </form>
       </div>
