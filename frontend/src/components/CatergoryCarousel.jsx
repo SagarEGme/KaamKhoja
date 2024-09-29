@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const category = [
     "Frontend Developer",
     "Backend Developer",
-    "Data Science",
+    "Data Science Engineer",
     "Graphic Designer",
     "FullStack Developer"
 ]
@@ -15,17 +15,17 @@ const category = [
 const CategoryCarousel = () => {
     return (
         <div>
-            <Carousel className="mx-auto w-full max-w-xl my-20">
-                <CarouselContent>
+            <Carousel className="mx-auto w-full max-w-2xl my-20">
+                <CarouselContent className="mx-auto">
                     {
                         category.map((cat, index) => (
-                            <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                            <CarouselItem className="w-full sm:basis-1/2 md:basis-1/2 lg:basis-1/3">
                                 <Button onClick={()=>searchJobHandler(cat)} variant="outline" className="rounded-full">{cat}</Button>
                             </CarouselItem>
                         ))
                     }
                 </CarouselContent>
-                <CarouselPrevious />
+                    <CarouselPrevious />
                 <CarouselNext />
             </Carousel>
         </div>

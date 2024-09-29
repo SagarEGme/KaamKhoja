@@ -15,14 +15,14 @@ const Navbar = () => {
                 </div>
                 <div >
                     <ul className='flex font-medium gap-4 items-center'>
-                        <li>Home</li>
-                        <li>Jobs</li>
-                        <li>Browser</li>
+                        <li className="cursor-pointer font-medium"><Link to="/">Home</Link></li>
+                        <li className="cursor-pointer font-medium"><Link to="/jobs">Jobs</Link></li>
+                        <li className="cursor-pointer font-medium"><Link to="/browse">Browse</Link></li>
                     </ul>
                 </div>
                 {
                     !user ? (
-                        <div className=" mr-2">
+                        <div className=" mr-2 h-[80%]">
                             <ul className="flex gap-2">
                                 <Link to="/login"><Button variant="outline">Login</Button></Link>
                                 <Link to="/signup"> <Button className="bg-zinc-700 hover:bg-zinc-950">Signup</Button></Link>
