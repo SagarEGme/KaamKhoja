@@ -54,7 +54,7 @@ const Navbar = () => {
 
                                         <div className="mt-2 flex justify-between items-center ">
                                             <User className="text-blue-800" />
-                                            <Button variant="Link" className="text-blue-800 ">View Profile</Button>
+                                            <Button variant="Link" className="text-blue-800 "><Link to="/profile">View Profile</Link></Button>
                                         </div>
                                         <div className="mt-2 flex justify-between items-center">
                                             <LogOut className="text-red-800" />

@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
-    name:"authSlice",
+    name:"auth",
     initialState:{
         loading:false,
     },
-    reducer:{
+    reducers:{ // skipped 2 days getting frustated
         setLoading:(state, action) =>{
             state.loading = action.payload;
         }

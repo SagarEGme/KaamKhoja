@@ -9,7 +9,7 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import { USER_API_END_POINT } from '@/utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLoading } from '@/redux/authslice'
+import { setLoading } from "@/redux/authslice"
 import { Loader2 } from 'lucide-react'
 
 
@@ -19,7 +19,7 @@ const Login = () => {
     password: "",
     role: "",
   })
-  const { loading } = useSelector(store => store.auth);
+  const {loading } = useSelector(store => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -55,7 +55,7 @@ const Login = () => {
       <div className="flex items-center justify-center mx-auto max-w-7xl">
         <form onSubmit={submitHandler} className='w-1/2 border border-gray-200 rounded-md p-4 my-10'>
           <div className=' flex justify-center items-center'>
-            <h1 className='font-bold text-xl mb-5'>Sign Up</h1>
+            <h1 className='font-bold text-xl mb-5'>Login</h1>
           </div>
           <div className='my-2'>
             <Label>Email</Label>
@@ -77,7 +77,7 @@ const Login = () => {
             />
           </div>
           <div>
-            <RadioGroup className="flex items-center gap-4 items-center justify-around">
+            <RadioGroup className="flex items-center gap-4 justify-around">
               <div className="flex items-center space-x-2 ">
                 <Input type="radio" name="role" value="student" checked={input.role === "student"} onChange={changeEventHandler} className="cursor-pointer" />
                 <Label htmlFor="r1">Student</Label>
