@@ -6,7 +6,7 @@ import { LogOut, User } from "lucide-react"
 import { Link } from "react-router-dom"
 
 const Navbar = () => {
-    let user = false;
+    let user = true;
     return (
         <div className="bg-white">
             <div className=' flex justify-between items-center mx-auto max-w-7xl  h-16 '>
