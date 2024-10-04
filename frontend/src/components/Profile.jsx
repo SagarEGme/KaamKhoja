@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './shared/Navbar';
 import { Avatar, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 
 const Profile = () => {
   const isResume = false;
+  const [open,setOpen] = useState(false);
   const user = useSelector(store => store.auth)
   console.log("profile section", user)
   return (
@@ -26,7 +27,7 @@ const Profile = () => {
               <p>{user?.profile?.bio}Hey biatch</p>
             </div>
           </div>
-          <Button className="text-right" variant="outline"><Pen /></Button>
+          <Button onClick={()=>setOpen(true)} className="text-right" variant="outline"><Pen /></Button>
         </div>
         <div className='my-5'>
           <div className='flex items-center gap-3 my-2'>
@@ -64,6 +65,7 @@ const Profile = () => {
 
         <AppliedJobTable />
         </div>
+        <UpdateProfileDialog open={open} setOpen={setOpen} />
       </div>
 
     </div>
