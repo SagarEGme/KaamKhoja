@@ -4,9 +4,10 @@ import { Button } from "../ui/button.jsx"
 import React from 'react'
 import { LogOut, User } from "lucide-react"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 const Navbar = () => {
-    let user = true;
+    const {user} = useSelector(store=>store.auth);
     return (
         <div className="bg-white">
             <div className=' flex justify-between items-center mx-auto max-w-7xl  h-16 '>
@@ -43,6 +44,7 @@ const Navbar = () => {
                                         <div>
                                             <Avatar className="cursor-pointer">
                                                 <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                                                <h3>{user?.fullName}</h3>
                                             </Avatar>
                                         </div>
                                         <div>

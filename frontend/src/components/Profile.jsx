@@ -7,12 +7,12 @@ import { Badge } from './ui/badge';
 import { Label } from './ui/label';
 import AppliedJobTable from './AppliedJobTable';
 import { useSelector } from 'react-redux';
+import UpdateProfileDialog from './UpdateProfileDialog';
 
 const Profile = () => {
   const isResume = false;
-  const [open,setOpen] = useState(false);
-  const user = useSelector(store => store.auth)
-  console.log("profile section", user)
+  const [open, setOpen] = useState(false);
+  const { user } = useSelector(store => store.auth)
   return (
     <div>
       <Navbar />
@@ -23,11 +23,11 @@ const Profile = () => {
               <AvatarImage src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg" alt="profile" />
             </Avatar>
             <div>
-              <h1 className='font-medium text-xl'>{user?.fullname}Sagar Regmi</h1>
-              <p>{user?.profile?.bio}Hey biatch</p>
+              <h1 className='font-medium text-xl'>{user?user?.fullName:"Sagar rEGmi"}</h1>
+              <p>{user?.profile?.bio} Hey biatch</p>
             </div>
           </div>
-          <Button onClick={()=>setOpen(true)} className="text-right" variant="outline"><Pen /></Button>
+          <Button onClick={() => setOpen(true)} className="text-right" variant="outline"><Pen /></Button>
         </div>
         <div className='my-5'>
           <div className='flex items-center gap-3 my-2'>
@@ -43,27 +43,31 @@ const Profile = () => {
       <div className='max-w-5xl mx-auto mt-4'>
 
         <div className='my-5'>
-          <h1 className='font-bold text-md'>Skills</h1>
-          <div className='flex items-center gap-1 my-2 p-2'>
-           {
+          <h1 className='font-bold text-xl'>Skills</h1>
+          <div className='flex items-center my-2'>
+            {/* {
             ["react","mern","html"].map((item,index) => {
               return (
 
                 <Badge key={index}>{item}</Badge>
               )
             })
-           }
+           } */}
+            {
+              user?.profile?.skills.length !== 0 ? user?.profile?.skills.map((item, index) => <Badge className="text-sm capitalize mx-1 " key={index}>{item}</Badge>) : <span>Not mentioned.</span>
+            }
           </div>
         </div>
         <div className='grid w-full max-w-sm items-center gap-1.5'>
-          <Label className="text-md font-bold">Resume</Label>
+          <Label className="text-xl font-bold">Resume</Label>
           {
             isResume ? <a target='blank' href={user?.profile?.resume} className='text-blue-500 w-full hover:underline cursor-pointer'>{user?.profile?.resumeOriginalName}</a> : <span className='flex items-center gap-1 px-2'>NA</span>
           }
         </div>
+       
         <div className='bg-slate-50 rounded-2xl my-3 p-3'>
 
-        <AppliedJobTable />
+          <AppliedJobTable />
         </div>
         <UpdateProfileDialog open={open} setOpen={setOpen} />
       </div>

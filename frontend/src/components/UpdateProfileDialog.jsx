@@ -3,23 +3,31 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '
 import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { useDispatch, useSelector } from 'react-redux'
+import { USER_API_END_POINT } from '@/utils/constants'
+import { Button } from './ui/button'
+import { setUser } from '@/redux/authslice'
+import { toast } from 'sonner'
+import axios from 'axios'
+import { Loader2 } from 'lucide-react'
 
 const UpdateProfileDialog = ({ open, setOpen }) => {
     const [loading, setLoading] = useState(false);
     const { user } = useSelector(store => store.auth);
 
     const [input, setInput] = useState({
-        fullname: user?.fullname || "",
+        fullName: user?.fullName || "",
         email: user?.email || "",
         phoneNumber: user?.phoneNumber || "",
         bio: user?.profile?.bio || "",
         skills: user?.profile?.skills?.map(skill => skill) || "",
         file: user?.profile?.resume || ""
     })
+    console.log(input);
 
     const dispatch = useDispatch();
 
     const changeEventHandler = (e) => {
+        console.log("change event handler",e)
         setInput({ ...input, [e.target.name]: e.target.value });
     }
     const fileChangeHandler = (e) => {
@@ -27,10 +35,10 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         setInput({ ...input, file })
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("fullName", input.fullname);
+        formData.append("fullName", input.fullName);
         formData.append("email", input.email);
         formData.append("phoneNumber", input.phoneNumber);
         formData.append("bio", input.bio);
@@ -38,6 +46,30 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         if (input.file) {
             formData.append("file", input.file);
         }
+
+        try {
+            setLoading(true);
+            const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData, {
+
+                headers: {
+                    'Content-Type': "multipart/form-data",
+                },
+                withCredentials: true,
+            }
+
+            )
+            if (res?.data.success) {
+                console.log("response in updata profile",res);
+                dispatch(setUser(res.data.user));
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log("errror in update profile section", error);
+            toast.error(error.response.data.message);
+        } finally {
+            setLoading(false);
+        }
+        setOpen(false);
     }
 
     return (
@@ -53,9 +85,9 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <Label htmlFor="name" className="text-right">Name</Label>
                                 <Input
                                     id="name"
-                                    name="name"
+                                    name="fullName"
                                     type="text"
-                                    value={input.fullname}
+                                    value={input.fullName}
                                     onChange={changeEventHandler}
                                     className="col-span-3"
                                 />
@@ -75,7 +107,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <Label htmlFor="number" className="text-right">Number</Label>
                                 <Input
                                     id="number"
-                                    name="number"
+                                    name="phoneNumber"
                                     value={input.phoneNumber}
                                     onChange={changeEventHandler}
                                     className="col-span-3"
