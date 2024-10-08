@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 import UpdateProfileDialog from './UpdateProfileDialog';
 
 const Profile = () => {
-  const isResume = false;
   const [open, setOpen] = useState(false);
   const { user } = useSelector(store => store.auth)
   return (
@@ -32,15 +31,16 @@ const Profile = () => {
         <div className='my-5'>
           <div className='flex items-center gap-3 my-2'>
             <Mail />
-            <span>{user?.email}onlyfans.com</span>
+            <span>{user?.email || "onlyfans@gmail.com"}</span>
           </div>
           <div className='flex items-center gap-3 my-2'>
             <Contact />
-            <span>{user?.phoneNumber}100</span>
+            <span>{user?.phoneNumber || 100}</span>
           </div>
         </div>
+        
       </div>
-      <div className='max-w-5xl mx-auto mt-4'>
+      <div className='max-w-5xl mx-auto mt-4 px-3'>
 
         <div className='my-5'>
           <h1 className='font-bold text-xl'>Skills</h1>
@@ -54,14 +54,14 @@ const Profile = () => {
             })
            } */}
             {
-              user?.profile?.skills.length !== 0 ? user?.profile?.skills.map((item, index) => <Badge className="text-sm capitalize mx-1 " key={index}>{item}</Badge>) : <span>Not mentioned.</span>
+              user?.profile.skills.length  ? user?.profile?.skills.map((item, index) => <Badge className="text-sm capitalize mx-1 " key={index}>{item}</Badge>) : <span>Not mentioned.</span>
             }
           </div>
         </div>
         <div className='grid w-full max-w-sm items-center gap-1.5'>
           <Label className="text-xl font-bold">Resume</Label>
           {
-            isResume ? <a target='blank' href={user?.profile?.resume} className='text-blue-500 w-full hover:underline cursor-pointer'>{user?.profile?.resumeOriginalName}</a> : <span className='flex items-center gap-1 px-2'>NA</span>
+            user?.profile.resume ? <a target='blank' href={user?.profile.resume} className='text-blue-500 w-full mx-3 font-medium hover:underline cursor-pointer'>{user?.profile?.resumeOriginalName}</a> : <span className='flex items-center gap-1 px-2'>NA</span>
           }
         </div>
        

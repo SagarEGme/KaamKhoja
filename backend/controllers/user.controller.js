@@ -1,6 +1,8 @@
 import { User } from "../models/user.model.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import getDataUri from "../utils/dataUri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
     try {
@@ -103,10 +105,16 @@ export const logout = (req, res) => {
 export const updateProfile = async (req, res) => {
     try {
         const { fullName, email, phoneNumber, bio, skills } = req.body;
+
+        const file = req.file;
+        const fileUri = getDataUri(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
+
+
         let skillsArray;
         if (skills) skillsArray = skills.split(",");
 
-        const file = req.file;
         const userId = req.id; // from middleware isAuthenticated ;
         let user = await User.findById(userId);
 
@@ -124,6 +132,11 @@ export const updateProfile = async (req, res) => {
         if (bio) user.profile.bio = bio
         if (skills) user.profile.skills = skillsArray
 
+        //resume
+        if(cloudResponse){
+            user.profile.resume = cloudResponse.secure_url;//save cloudinary url
+            user.profile.resumeOriginalName = file.originalname;//save originalfile name
+        }//be careful whether to use originalName or originalname 10 mins to debug
         await user.save(); //after changing the data values we need to use dataname.save() function.
 
         user = {
