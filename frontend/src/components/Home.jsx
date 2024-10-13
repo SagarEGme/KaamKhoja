@@ -4,15 +4,15 @@ import Hero from './Hero';
 import CatergoryCarousel from './CatergoryCarousel';
 import LatestJobs from './LatestJobs';
 import Footer from './shared/Footer';
+import useGetAllJobs from '@/hooks/useGetAllJobs';
 
 const Home = () => {
+  useGetAllJobs();
   return (
     <div>
-      <div className='min-h-screen'>
         <Navbar />
         <Hero />
         <CatergoryCarousel />
-      </div>
       <LatestJobs />
       <Footer />
     </div>

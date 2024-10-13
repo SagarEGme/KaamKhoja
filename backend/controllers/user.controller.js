@@ -14,6 +14,8 @@ export const register = async (req, res) => {
             });
         }
         const file = req.file;
+        const fileUri = getDataUri(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content)
 
         let user = await User.findOne({ email });
         if (user) {
@@ -32,7 +34,7 @@ export const register = async (req, res) => {
             password: hashedPassword,
             role,
             profile: {
-                //will be filled later
+                profilePhoto:cloudResponse.secure_url,
             }
         })
 

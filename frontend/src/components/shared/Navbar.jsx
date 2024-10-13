@@ -3,15 +3,29 @@ import { Avatar, AvatarImage } from "../ui/avatar.jsx"
 import { Button } from "../ui/button.jsx"
 import React from 'react'
 import { LogOut, User } from "lucide-react"
-import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { USER_API_END_POINT } from "@/utils/constants.js"
+import { setUser } from "@/redux/authslice.js"
+import axios from "axios"
 
 const Navbar = () => {
     const {user} = useSelector(store=>store.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const logoutHandler = async ()=>{ // while calling api always use async await.
+        const res = await axios.get(`${USER_API_END_POINT}/logout`,{withCredentials:true});
+        if(res.data.success){
+            dispatch(setUser(null));
+            navigate("/");
+            toast.success(res.data.message);
+        }
+    }
     return (
         <div className="bg-white">
             <div className=' flex justify-between items-center mx-auto max-w-7xl  h-16 '>
-                <div className=" ml-2">
+                <div className=" ml-2 cursor-pointer" onClick={()=>navigate("/")}>
                     <h1 className="text-2xl font-bold">Job<span className='text-[#F83002]'>Portal</span></h1>
                 </div>
                 <div >
@@ -29,13 +43,13 @@ const Navbar = () => {
                                 <Link to="/signup"> <Button className="bg-zinc-700 hover:bg-zinc-950">Signup</Button></Link>
                             </ul>
                         </div>
-                    ) : (
+                    ) : ( 
 
                         <div className="m-12">
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <Avatar className="cursor-pointer">
-                                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                                        <AvatarImage src={user.profile.profilePhoto? user?.profile.profilePhoto : "https://github.com/shadcn.png"} alt="@shadcn" />
                                     </Avatar>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-80">
@@ -43,13 +57,13 @@ const Navbar = () => {
 
                                         <div>
                                             <Avatar className="cursor-pointer">
-                                                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                                                <h3>{user?.fullName}</h3>
+                                                <AvatarImage src={user.profile.profilePhoto? user?.profile.profilePhoto : "https://github.com/shadcn.png"} alt="@shadcn" />
+                                            
                                             </Avatar>
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold">Sagar Regmi</h4>
-                                            <h5 className="text-xs">Lorem ipsum dolor sit.</h5>
+                                            <h4 className="font-semibold uppercase">{user? user?.fullName : "Sagar Regmi"} <span className="text-sm lowercase text-gray-400">({user?.role})</span></h4>
+                                            <h5 className="text-xs">{user?.profile.bio}</h5>
                                         </div>
                                     </div>
                                     <div className="flex  justify-around gap-5">
@@ -60,7 +74,7 @@ const Navbar = () => {
                                         </div>
                                         <div className="mt-2 flex justify-between items-center">
                                             <LogOut className="text-red-800" />
-                                            <Button variant="Link" className="text-red-800">Login</Button>
+                                            <Button onClick={logoutHandler} variant="Link" className="text-red-800">Logout</Button>
                                         </div>
                                     </div>
                                 </PopoverContent>

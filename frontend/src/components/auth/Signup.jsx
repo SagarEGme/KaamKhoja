@@ -93,7 +93,7 @@ const Signup = () => {
               value={input.email}
               name="email"
               onChange={changeEventHandler}
-              placeholder="Eg - sagar123regmi@gmail.com"
+              placeholder="Eg:sagar123regmi@gmail.com"
             />
           </div>
           <div className='my-2'>
@@ -112,6 +112,7 @@ const Signup = () => {
               type="password"
               value={input.password}
               name="password"
+              required:true
               onChange={changeEventHandler}
             />
           </div>
