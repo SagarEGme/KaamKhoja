@@ -7,6 +7,7 @@ import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from '@/utils/constants'
 import { setSingleJob } from '@/redux/jobSlice';
 import axios from 'axios';
 import Navbar from './shared/Navbar';
+import { toast } from 'sonner';
 
 const JobDescription = () => {
     const { user } = useSelector(store => store.auth);
@@ -15,25 +16,27 @@ const JobDescription = () => {
     const params = useParams();
     const jobId = params.id;
     const dispatch = useDispatch();
-    console.log(jobId)
 
-    const isInitiallyApplied = singleJob?.applications?.some(application => application.applicant === user?._id) || false;
+    const isInitiallyApplied = singleJob?.applications?.some(application => application.applicant == user?._id) || false;
     const [isApplied, setIsApplied] = useState(isInitiallyApplied);
 
     const applyJobHandler = async () => {
-        try {
+        // try {
             const res = await axios.get(`${APPLICATION_API_END_POINT}/apply/${jobId}`,{withCredentials:true});
-            console.log("res", res)
+            console.log(res)
             if (res.data.success) {
                 setIsApplied(true);
+                console.log("res is",res)
                 const updatedSingleJob = { ...singleJob, applications: [...singleJob.applications, { applicant: user?._id }] }
+
                 dispatch(setSingleJob(updatedSingleJob));
                 toast.success(res.data.message)
             }
-        } catch (error) {
-            console.log(error.response.data.message);
+        // } catch (error) {
+        //     toast.error(error.response.data.message)
+        //     console.log(error);
 
-        }
+        // }
     }
 
     useEffect(() => {
@@ -42,7 +45,7 @@ const JobDescription = () => {
                 const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, { withCredentials: true })
                 if (res.data.success) {
                     dispatch(setSingleJob(res.data.job));
-                    setIsApplied(res.data.job.applications.some(application=>application.applicant === user?._id)) // Ensure the state is in sync with fetched data
+                    setIsApplied(res.data.job.applications.some(application=>application.applicant == user?._id)) // Ensure the state is in sync with fetched data
                     //15 minutes to debug
                 }
             } catch (error) {
@@ -50,7 +53,7 @@ const JobDescription = () => {
             }
         }
         fetchSinglejob();
-    }, [jobId, dispatch, user?._id]);
+    }, [jobId,dispatch, user?._id]);
 
     return (
         <>

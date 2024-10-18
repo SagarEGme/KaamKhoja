@@ -3,9 +3,11 @@ import { Application } from "../models/application.model.js";
 
 
 export const applyJob = async (req, res) => {
-   try {
+    //   try {
     const userId = req.id;
     const jobId = req.params.id;
+    console.log("user", userId);
+    console.log("job id", jobId)
     if (!jobId) {
         return res.status(400).json({
             message: "Please mention the job id.",
@@ -14,7 +16,7 @@ export const applyJob = async (req, res) => {
     }
     const job = await Job.findById(jobId);
     if (!job) {
-        return res.status(400).json({
+        return res.status(404).json({
             message: "No job found.",
             success: false,
         })
@@ -24,17 +26,9 @@ export const applyJob = async (req, res) => {
         return res.status(400).json({
             message: "You have already applied for this post.",
             success: false,
+            job
         })
     }
-    return res.status(200).json({
-        message:"Best of luck for job.",
-        success:true,
-    })
-   } catch (error) {
-    console.log(error);
-    
-   }
-
 
     //create an application for job
     const newApplication = await Application.create({
@@ -47,12 +41,15 @@ export const applyJob = async (req, res) => {
         message: "appllicaiton submitted successfully.",
         success: true,
     })
+    //   } catch (error) {
+    //     console.log("error in applying",error)
+    //   }
 }
 
 export const getAppliedJobs = async (req, res) => {
     try {
         const userId = req.id;
-        const application = await Application.find({applicant: userId });
+        const application = await Application.find({ applicant: userId });
         if (!application) {
             return res.status(404).json({
                 message: "No Applications",
@@ -69,57 +66,57 @@ export const getAppliedJobs = async (req, res) => {
 }
 
 //for admin to see the details of total applicants;
-export const getApplicants = async (req,res) => {
+export const getApplicants = async (req, res) => {
     try {
         const jobId = req.params.id;
         const job = await Job.findById(jobId).populate({
-            path:'applications',
-            options:{sort:{createdAt:-1}},
-            populate:{
-                path:'applicant'
+            path: 'applications',
+            options: { sort: { createdAt: -1 } },
+            populate: {
+                path: 'applicant'
             }
         });
-        if(!job){
+        if (!job) {
             return res.status(404).json({
-                message:'Job not found.',
-                success:false
+                message: 'Job not found.',
+                success: false
             })
         };
         return res.status(200).json({
-            job, 
-            succees:true
+            job,
+            succees: true
         });
     } catch (error) {
         console.log(error);
     }
 }
 
-export const updateStatus = async (req,res)=>{
+export const updateStatus = async (req, res) => {
     try {
-        const {status} = req.body;
+        const { status } = req.body;
         const applicationId = req.params.id;
-        if(!status){
+        if (!status) {
             return res.status(400).json({
-                message:'status is required.',
-                success:false
+                message: 'status is required.',
+                success: false
             })
         };
 
-        const applicant = await Application.findById({_id:applicationId})
-        if(!applicant){
+        const applicant = await Application.findById({ _id: applicationId })
+        if (!applicant) {
             return res.status(400).json({
-                message:'application not found.',
-                success:false
+                message: 'application not found.',
+                success: false
             })
         };
         application.status = status.toLowerCase();
         application.save();
         return res.status(200).json({
-            message:"List of applications: ",
-            application, 
-            succees:true
+            message: "List of applications: ",
+            application,
+            succees: true
         });
     } catch (error) {
-        console.log("update status",error)
+        console.log("update status", error)
     }
 }

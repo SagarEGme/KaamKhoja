@@ -21,6 +21,7 @@ const Signup = () => {
     role: '',
     file: ''
   })
+  const [ldng, setLdng] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector(store => store.auth);
@@ -53,8 +54,7 @@ const Signup = () => {
         withCredentials: true,
       });
       console.log("response is ", res);
-      if (res?.data.success) {
-        console.log("success signin")
+      if (res.data.success) {
         navigate("/login")
         toast.success(res?.data.message);
       }
@@ -64,7 +64,7 @@ const Signup = () => {
       toast.error(error.response.data.message)
 
     } finally {
-      setLoading(false);
+      dispatch(setLoading(false))
     }
   }
 
@@ -112,7 +112,6 @@ const Signup = () => {
               type="password"
               value={input.password}
               name="password"
-              required:true
               onChange={changeEventHandler}
             />
           </div>
@@ -132,13 +131,16 @@ const Signup = () => {
             <Label>Profile</Label>
             <Input type="file" accept="image/*" onChange={changeFileHandler} className="cursor-pointer" />
           </div>
-          {
-            loading ? <Button><Loader2 className='mr-2 h-4 w-full animate-spin' />Please Wait !</Button> : (
+          <div className='flex flex-col mt-2 '>
 
-              <Button type="submit" className="w-full my-4">Sign up</Button>
-            )
-          }
-          <span className="text-sm">Already have an accout?<Link to="/login" className='text-blue-600 hover:underline'>Login</Link></span>
+            {
+              loading ? <Button><Loader2 className=' h-4 mr-3 animate-spin' />Please Wait !</Button> : (
+
+                <Button type="submit" className="w-full my-4">Sign up</Button>
+              )
+            }
+            <span className="text-sm">Already have an accout?<Link to="/login" className='text-blue-600 hover:underline'>Login</Link></span>
+          </div>
         </form>
       </div>
     </>
