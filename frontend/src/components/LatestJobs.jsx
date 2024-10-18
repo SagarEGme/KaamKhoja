@@ -16,7 +16,7 @@ const LatestJobs = () => {
             </div>
             <div className='grid grid-cols-3 gap-4 my-5'>
                 {
-                    allJobs.length !== 0 ? allJobs.slice(0, 6).map((item, index) => <LatestJobCards />) : <span>No Job posted.</span>
+                    allJobs.length !== 0 ? allJobs.slice(0, 6).map((job) => <LatestJobCards job={job} />) : <span>No Job posted.</span>
                 }
             </div>
             {allJobs.length > 6 && <div className='font-medium text-xl mt-4 items-center justify-center flex'>

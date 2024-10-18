@@ -5,12 +5,12 @@ export const postJob = async (req, res) => {
         const { title, description, requirements, salary, experienceLevel, location, jobType, position, companyId } = req.body;
         const userId = req.id;
 
-        if (!title || !description || !salary || !requirements) {
-            return res.status(400).json({
-                message: "some post job data is missing.",
-                success: false,
-            })
-        }
+        // if (!title || !description || !salary || !requirements || !experienceLevel || !location || !jobType || !position ) {
+        //     return res.status(400).json({
+        //         message: "some post job data is missing.",
+        //         success: false,
+        //     })
+        // } 
 
         const job = await Job.create({
             title, description, requirements: requirements.split(","), salary: Number(salary), experienceLevel, location, jobType, position, company: companyId, created_by: userId

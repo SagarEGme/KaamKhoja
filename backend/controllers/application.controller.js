@@ -3,6 +3,7 @@ import { Application } from "../models/application.model.js";
 
 
 export const applyJob = async (req, res) => {
+   try {
     const userId = req.id;
     const jobId = req.params.id;
     if (!jobId) {
@@ -25,6 +26,15 @@ export const applyJob = async (req, res) => {
             success: false,
         })
     }
+    return res.status(200).json({
+        message:"Best of luck for job.",
+        success:true,
+    })
+   } catch (error) {
+    console.log(error);
+    
+   }
+
 
     //create an application for job
     const newApplication = await Application.create({
