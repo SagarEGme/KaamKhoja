@@ -3,9 +3,11 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Edit2, MoreHorizontal } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const CompaniesTable = () => {
     const company = null;
+    const navigate = useNavigate();
     return (
         <div className='max-w-4xl mx-auto'>
             <Table>
@@ -31,7 +33,7 @@ const CompaniesTable = () => {
                         <Popover>
                             <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
                             <PopoverContent className="w-32">
-                                <div onClick={() => navigate(`/admin/companies/${company._id}`)} className='flex items-center gap-2 w-fit cursor-pointer'>
+                                <div onClick={() => navigate("/admin/companies/abc")} className='flex items-center gap-2 w-fit cursor-pointer'>
                                     <Edit2 className='w-4' />
                                     <span>Edit</span>
                                 </div>

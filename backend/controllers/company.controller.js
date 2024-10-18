@@ -20,6 +20,12 @@ export const registerCompany = async (req, res) => {
             name: companyName,
             userId: req.id,
         })
+        company = {
+            _id: company._id,
+            name: company.name,
+            description: company.description,
+            website:company.website,
+        }
         return res.status(201).json({
             message: "Company registered successfully.",
             company,
@@ -74,8 +80,8 @@ export const getCompanyById = async (req,res)=>{
 export const updateCompany = async (req,res)=>{
     try {
         //better logic is shown in user profile update
-        const {name,description,website,location} = req.body;
-        const updateProfile = {name,description,website,location};
+        const {name,description,website,location,logo} = req.body;
+        const updateProfile = {name,description,website,location,logo};
 
         const company = await Company.findByIdAndUpdate(req.params.id, updateProfile , {new:true});
 
