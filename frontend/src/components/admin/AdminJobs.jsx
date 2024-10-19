@@ -2,26 +2,23 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import CompaniesTable from './CompaniesTable'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import useGetAllCompanies from '@/hooks/useGetAllCompanies'
-import { setSearchCompanyByText } from '@/redux/companySlice'
 import { Plus } from 'lucide-react'
+import AdminTable from './AdminTable'
+import useGetAllAdminJobs from '@/hooks/useGetAllAdminJobs'
+import { setSearchJobByText } from '@/redux/jobSlice'
 
-const Companies = () => {
-    useGetAllCompanies();
+const AdminJobs = () => {
+    useGetAllAdminJobs();
     const navigate = useNavigate();
-    //creating a local state.
-    const [input, setInput] = useState("")
     const dispatch = useDispatch();
+    const [input, setInput] = useState("")
     useEffect(() => {
-        dispatch(setSearchCompanyByText(input))
+        dispatch(setSearchJobByText(input))
     }, [input])
 
 
-
-    const { allCompanies } = useSelector(store => store.company)
     return (
         <>
             <Navbar />
@@ -33,18 +30,15 @@ const Companies = () => {
                             placeholder="Filter by name"
                             onChange={(e) => setInput(e.target.value)}
                         />
-                            
-                            <Button onClick={() => navigate("/admin/companies/create")}><Plus className='pr-1 text-white' />New Company</Button>
-                    </div>
-                    {
-                        allCompanies.length <= 0 ? <span>No companies registered.</span> : (
 
-                            <CompaniesTable />
-                        )}
+                        <Button onClick={() => navigate("/admin/jobs/create")}><Plus className='pr-1 text-white' />New Job</Button>
+                    </div>
+
+                    <AdminTable  />
                 </div>
             </div>
         </>
     )
 }
 
-export default Companies
+export default AdminJobs
