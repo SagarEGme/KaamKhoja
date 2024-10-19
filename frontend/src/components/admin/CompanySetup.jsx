@@ -41,7 +41,8 @@ const CompanySetup = () => {
       location: singleCompany?.location || "",
       file: singleCompany.file || null
     })
-  }, [singleCompany]);
+  }, [singleCompany]); // took 1,2 hour to figure out why the values weren't filled in the input. I simply moved 
+  //this useEffect ahead.
 
 
   const submitHandler = async (e) => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
@@ -7,9 +7,14 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const CompaniesTable = () => {
-    const { allCompanies } = useSelector(store => store.company);
-    console.log("company table",allCompanies);
-    
+    const { allCompanies,searchCompanyByText } = useSelector(store => store.company);
+    const [filterCompany,setFilterCompany] = useState(allCompanies);
+    useEffect(()=>{
+        const filteredCompany = allCompanies.length>=0 && allCompanies.filter((company)=>{
+            return company?.name?.toLowerCase().includes(searchCompanyByText.toLowerCase());
+        })
+        setFilterCompany(filteredCompany);
+    })    
     const navigate = useNavigate();
     return (
         <div className='max-w-4xl mx-auto'>
@@ -25,7 +30,7 @@ const CompaniesTable = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        allCompanies.map((company) => (
+                        filterCompany.map((company) => (
                             <tr>
 
                                 <TableCell>
