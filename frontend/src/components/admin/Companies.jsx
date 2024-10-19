@@ -4,13 +4,14 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import CompaniesTable from './CompaniesTable'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import useGetAllCompanies from '@/hooks/useGetAllCompanies'
 
 const Companies = () => {
+    useGetAllCompanies();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-
+    const { allCompanies } = useSelector(store => store.company)
+    console.log(allCompanies)
     return (
         <>
             <Navbar />
@@ -23,7 +24,11 @@ const Companies = () => {
                         />
                         <Button onClick={() => navigate("/admin/companies/create")}>New Company</Button>
                     </div>
-                    <CompaniesTable />
+                    {
+                        allCompanies.length <= 0 ? <span>No companies registered.</span> : (
+
+                            <CompaniesTable />
+                        )}
                 </div>
             </div>
         </>

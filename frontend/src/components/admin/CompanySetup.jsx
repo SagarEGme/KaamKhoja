@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Button } from '../ui/button'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { useNavigate, useParams } from 'react-router-dom'
-import { COMPANY_API_END_POINT } from '@/utils/constants'
+import { COMPANY_API_END_POINT } from '../../utils/constants.js'
 import { toast } from 'sonner'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setSingleCompany } from '@/redux/companySlice'
+import useGetCompanyById from '../../hooks/useGetCompanyById'
 
 const CompanySetup = () => {
   const params = useParams();
+  useGetCompanyById(params.id)
+  const dispatch = useDispatch();
   const { singleCompany } = useSelector(store => store.company)
   const [input, setInput] = useState({
     name: "",
@@ -30,6 +33,17 @@ const CompanySetup = () => {
     const file = e.target.files?.[0];
     setInput({ ...input, file })
   }
+  useEffect(() => {
+    setInput({
+      name: singleCompany?.name || "",
+      description: singleCompany?.description || "",
+      website: singleCompany?.website || "",
+      location: singleCompany?.location || "",
+      file: singleCompany.file || null
+    })
+  }, [singleCompany]);
+
+
   const submitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -38,7 +52,7 @@ const CompanySetup = () => {
     formData.append("website", input.website);
     formData.append("location", input.location);
     if (input.file) {
-      formData.append("logo", input.file);
+      formData.append("file", input.file);
     }
     try {
       setLoading(true);
@@ -60,22 +74,14 @@ const CompanySetup = () => {
     } finally {
       setLoading(false);
     }
-    useEffect(() => {
-      setInput({
-        name: singleCompany.name || "",
-        description: singleCompany.description || "",
-        website: singleCompany.website || "",
-        location: singleCompany.location || "",
-        logo: singleCompany.logo || null
-      })
-    }, [singleCompany]);
+
   }
   return (
     <div>
       <Navbar />
       <div className='max-w-xl mx-auto my-10'>
         <form onSubmit={submitHandler}>
-          <div className='flex items-center gap-5 p-8'>
+          <div className='flex items-center gap-5 pb-4'>
             <Button onClick={() => navigate("/admin/companies")} variant="outline" className="flex items-center gap-2 text-gray-500 font-semibold">
               <ArrowLeft />
               <span>Back</span>

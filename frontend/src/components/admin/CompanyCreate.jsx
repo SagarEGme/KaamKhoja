@@ -13,7 +13,7 @@ import { setSingleCompany } from '@/redux/companySlice'
 const CompanyCreate = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [companyName,setCompanyName] = useState();
+  const [companyName,setCompanyName] = useState("");
   const registerNewCompany = async ()=>{
     try {
       const res = await axios.post(`${COMPANY_API_END_POINT}/register`,{companyName},{

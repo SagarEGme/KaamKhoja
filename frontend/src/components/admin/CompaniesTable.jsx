@@ -4,9 +4,12 @@ import { Avatar, AvatarImage } from '../ui/avatar'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Edit2, MoreHorizontal } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const CompaniesTable = () => {
-    const company = null;
+    const { allCompanies } = useSelector(store => store.company);
+    console.log("company table",allCompanies);
+    
     const navigate = useNavigate();
     return (
         <div className='max-w-4xl mx-auto'>
@@ -21,25 +24,32 @@ const CompaniesTable = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
+                    {
+                        allCompanies.map((company) => (
+                            <tr>
 
-                    <TableCell>
-                        <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                        </Avatar>
-                    </TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell className="text-right cursor-pointer">
-                        <Popover>
-                            <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
-                            <PopoverContent className="w-32">
-                                <div onClick={() => navigate("/admin/companies/abc")} className='flex items-center gap-2 w-fit cursor-pointer'>
-                                    <Edit2 className='w-4' />
-                                    <span>Edit</span>
-                                </div>
-                            </PopoverContent>
-                        </Popover>
-                    </TableCell>
+                                <TableCell>
+                                    <Avatar>
+                                        <AvatarImage src={company.logo} />
+                                    </Avatar>
+                                </TableCell>
+                                <TableCell>{company.name}</TableCell>
+                                <TableCell>{company.createdAt.split("T")[0]}</TableCell>
+                                <TableCell className="text-right cursor-pointer">
+                                    <Popover>
+                                        <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
+                                        <PopoverContent className="w-32">
+                                            <div onClick={() => navigate(`/admin/companies/${company._id}`)} className='flex items-center gap-2 w-fit cursor-pointer'>
+                                                <Edit2 className='w-4' />
+                                                <span>Edit</span>
+                                            </div>
+                                        </PopoverContent>
+                                    </Popover>
+                                </TableCell>
+                            </tr>
+
+                        ))
+                    }
 
                 </TableBody>
             </Table>
