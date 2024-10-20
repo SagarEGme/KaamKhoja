@@ -37,7 +37,6 @@ const PostJobs = () => {
         setInput({ ...input, companyId: selectedCompany._id });
     };
 
-    console.log("input",input)
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
@@ -48,7 +47,6 @@ const PostJobs = () => {
                 },
                 withCredentials: true
             });
-            console.log(res)
             if (res.data.success) {
                 toast.success(res.data.message);
                 navigate("/admin/jobs");

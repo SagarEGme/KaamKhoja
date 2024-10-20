@@ -6,8 +6,6 @@ export const applyJob = async (req, res) => {
     //   try {
     const userId = req.id;
     const jobId = req.params.id;
-    console.log("user", userId);
-    console.log("job id", jobId)
     if (!jobId) {
         return res.status(400).json({
             message: "Please mention the job id.",
@@ -49,7 +47,13 @@ export const applyJob = async (req, res) => {
 export const getAppliedJobs = async (req, res) => {
     try {
         const userId = req.id;
-        const application = await Application.find({ applicant: userId });
+        const application = await Application.find({ applicant: userId }).populate({
+            path:"job",
+            populate:{
+                path:'company'
+            }
+        });
+        // learn chaining population.
         if (!application) {
             return res.status(404).json({
                 message: "No Applications",
@@ -109,11 +113,12 @@ export const updateStatus = async (req, res) => {
                 success: false
             })
         };
-        application.status = status.toLowerCase();
-        application.save();
+        console.log(applicant)
+        applicant.status = status.toLowerCase();
+        applicant.save();
         return res.status(200).json({
-            message: "List of applications: ",
-            application,
+            message: "Status updated successfully. ",
+            applicant,
             succees: true
         });
     } catch (error) {

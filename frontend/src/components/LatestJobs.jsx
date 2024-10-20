@@ -2,9 +2,11 @@ import React from 'react'
 import LatestJobCards from './LatestJobCards.jsx';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import useGetAllJobs from '@/hooks/useGetAllJobs.jsx';
 
 
 const LatestJobs = () => {
+    useGetAllJobs();
     const randomJobs = [1, 2, 3, 4, 5, 6, 7, 8];
     const { allJobs } = useSelector(store => store.job);
 

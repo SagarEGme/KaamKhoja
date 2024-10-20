@@ -7,18 +7,12 @@ import { useDispatch } from 'react-redux'
 const useGetAllAdminJobs = () => {
     const dispatch = useDispatch()
     useEffect(() => {
-        
-        console.log("entered admin jobs");
-        console.log("entered admin jobs");
         const fetchAllAdminJobs = async () => {
             try {
                 console.log("try entered admin jobs");
                 const res = await axios.get(`${JOB_API_END_POINT}/admin/jobs`, { withCredentials: true });
-                console.log('hello',res)
-                if (res) {
-                    // console.log("data found");
-                    
-                    dispatch(setAllAdminJobs(res.data.jobs))
+                if (res.data.success) {
+                    dispatch(setAllAdminJobs(res.data.job))
                 }
             } catch (error) {
                 console.log(error);
