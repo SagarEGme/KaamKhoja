@@ -5,15 +5,13 @@ import Job from './Job';
 import Footer from './shared/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import useGetAllJobs from '@/hooks/useGetAllJobs';
-import { setSearchQuery } from '@/redux/jobSlice';
-import { Button } from './ui/button';
-
+import { motion } from "framer-motion"
 const Jobs = () => {
     useGetAllJobs();
-    const { allJobs,searchQuery} = useSelector(store=>store.job)
+    const { allJobs, searchQuery } = useSelector(store => store.job)
 
     const [filterJobs, setFilterJobs] = useState(allJobs);
-    
+
 
     useEffect(() => {
         if (searchQuery) {
@@ -38,8 +36,16 @@ const Jobs = () => {
                     <div className="flex-1 h-[88vh] pb-5 border-l-2  ">
                         <div className="grid grid-cols-3 gap-3">
                             {
-                           filterJobs.length>0 ? filterJobs.map((job)=><Job job={job} />) : <span>No jobs available</span>
-                        }
+                                filterJobs.length > 0 ? filterJobs.map((job) => <motion.div
+                                    initial={{ opacity: 0, x: 100 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -100 }}
+                                    transition={{ duration: 0.3 }}
+                                    key={job?._id}
+                                >
+                                    <Job job={job} />
+                                </motion.div>) : <span>No jobs available</span>
+                            }
                         </div>
                     </div>
                 </div>
