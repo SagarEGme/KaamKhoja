@@ -21,7 +21,6 @@ const Signup = () => {
     role: '',
     file: ''
   })
-  const [ldng, setLdng] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector(store => store.auth);

@@ -25,8 +25,8 @@ const Navbar = () => {
     return (
         <div className="bg-white">
             <div className=' flex justify-between items-center mx-auto max-w-7xl  h-16 '>
-                <div className=" ml-2 cursor-pointer" onClick={() => navigate("/")}>
-                    <h1 className="text-2xl font-bold">Job<span className='text-[#F83002]'>Portal</span></h1>
+                <div className="cursor-pointer" onClick={() => navigate("/")}>
+                    <h1 className="text-2xl font-bold uppercase "><span className="text-[#eb2525]">Kaam</span><span className='text-[#bd25eb]'>khoja</span></h1>
                 </div>
                 <div >
                     <ul className='flex font-medium gap-4 items-center'>
@@ -64,7 +64,7 @@ const Navbar = () => {
                                     </Avatar>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-80">
-                                    <div className=" border-b-2 pb-3 border-slate-600 flex items-center gap-4">
+                                    <div className="pb-3 flex items-center gap-4">
 
                                         <div>
                                             <Avatar className="cursor-pointer">
@@ -77,7 +77,7 @@ const Navbar = () => {
                                             <h5 className="text-xs">{user?.profile.bio}</h5>
                                         </div>
                                     </div>
-                                    <div className="flex  justify-around gap-5">
+                                    <div className="flex items-left flex-col mx-auto ">
 
                                         {
                                             user && user.role === 'student' && (
@@ -87,7 +87,7 @@ const Navbar = () => {
                                                 </div>
                                             )
                                         }
-                                        <div className="mt-2 flex justify-between items-center">
+                                        <div className="mt-2 flex items-center hover:underline">
                                             <LogOut className="text-red-800" />
                                             <Button onClick={logoutHandler} variant="Link" className="text-red-800">Logout</Button>
                                         </div>

@@ -19,7 +19,7 @@ const Login = () => {
     password: "",
     role: "",
   })
-  const {loading , user } = useSelector(store => store.auth);
+  const {loading } = useSelector(store => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -66,6 +66,7 @@ const Login = () => {
               name="email"
               onChange={changeEventHandler}
               placeholder="Eg - sagar123regmi@gmail.com"
+              required
             />
           </div>
           <div className='my-2'>
@@ -75,6 +76,7 @@ const Login = () => {
               value={input.password}
               name="password"
               onChange={changeEventHandler}
+              required
             />
           </div>
           <div>
