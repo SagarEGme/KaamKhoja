@@ -42,12 +42,12 @@ const FilterCard = () => {
         {
           fitlerData.map((data, index) =>
           (
-            <div className='w-full bg-white'>
+            <div className='w-full bg-white' key={index}>
               <h1 className="font-bold text-md">{data.fitlerType}</h1>
               {
                 data.array.map((item, ind) => {
                   return (
-                      <div className='flex gap-2 my-1 pl-2'>
+                      <div className='flex gap-2 my-1 pl-2' key={ind}> 
                         <RadioGroupItem value={item} id={index-ind} />
                         <Label htmlFor={index-ind}>{item}</Label>
                       </div>

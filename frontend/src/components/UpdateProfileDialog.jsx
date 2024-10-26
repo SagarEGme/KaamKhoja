@@ -22,12 +22,10 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         skills: user?.profile?.skills?.map(skill => skill) || "",
         file: user?.profile?.resume || ""
     })
-    console.log(input);
 
     const dispatch = useDispatch();
 
     const changeEventHandler = (e) => {
-        console.log("change event handler",e)
         setInput({ ...input, [e.target.name]: e.target.value });
     }
     const fileChangeHandler = (e) => {
@@ -59,12 +57,10 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
 
             )
             if (res?.data.success) {
-                console.log("response in updata profile",res);
                 dispatch(setUser(res.data.user));
                 toast.success(res.data.message);
             }
         } catch (error) {
-            console.log("errror in update profile section", error);
             toast.error(error.response.data.message);
         } finally {
             setLoading(false);

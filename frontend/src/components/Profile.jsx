@@ -15,18 +15,18 @@ const Profile = () => {
   return (
     <div>
       <Navbar />
-      <div className='max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-8'>
+      <div className='max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-3'>
         <div className='flex justify-between items-center'>
           <div className='flex items-center gap-4'>
             <Avatar className="h-24 w-24">
-              <AvatarImage src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg" alt="profile" />
+              <AvatarImage src={user?.profile?.profilePhoto ? user?.profile?.profilePhoto : "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"} alt="profile" />
             </Avatar>
             <div>
               <h1 className='font-medium text-xl'>{user?user?.fullName:"Sagar rEGmi"}</h1>
               <p>{user?.profile?.bio} Hey biatch</p>
             </div>
           </div>
-          <Button onClick={() => setOpen(true)} className="text-right" variant="outline"><Pen /></Button>
+          <Button onClick={() => setOpen(true)} className="text-right flex gap-3" variant="outline"><Pen className='w-6 h-6' /> Edit </Button>
         </div>
         <div className='my-5'>
           <div className='flex items-center gap-3 my-2'>
@@ -54,14 +54,14 @@ const Profile = () => {
             })
            } */}
             {
-              user?.profile.skills.length  ? user?.profile?.skills.map((item, index) => <Badge className="text-sm capitalize mx-1 " key={index}>{item}</Badge>) : <span>Not mentioned.</span>
+              user?.profile.skills.length  ? user?.profile?.skills.map((item, index) => <Badge className="text-sm capitalize mx-1 hover:scale-105 " key={index}>{item}</Badge>) : <span>Not mentioned.</span>
             }
           </div>
         </div>
         <div className='grid w-full max-w-sm items-center gap-1.5'>
           <Label className="text-xl font-bold">Resume</Label>
           {
-            user?.profile.resume ? <a target='blank' href={user?.profile.resume} className='text-blue-500 w-full mx-3 font-medium hover:underline cursor-pointer'>{user?.profile?.resumeOriginalName}</a> : <span className='flex items-center gap-1 px-2'>NA</span>
+            user?.profile.resume ? <a target='blank' rel="noopener noreferrer" href={user?.profile.resume} className='text-blue-500 w-full mx-3 font-medium hover:underline cursor-pointer'>{user?.profile?.resumeOriginalName}</a> : <span className='flex items-center gap-1 px-2'>NA</span>
           }
         </div>
        

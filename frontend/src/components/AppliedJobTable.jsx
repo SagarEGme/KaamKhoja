@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 const AppliedJobTable = () => {
     useGetAllAppliedJobs();
     const navigate = useNavigate()
-    const{allAppliedJobs} = useSelector(store=>store.auth)
+    const { allAppliedJobs } = useSelector(store => store.auth)
     return (
         <div>
             <Table>
@@ -25,24 +25,27 @@ const AppliedJobTable = () => {
                 <TableBody>
                     {
                         allAppliedJobs.map((item, index) => {
+                            const badgeColor= item.status === 'pending' ? "blue": item.status === 'accepted'? "green" : "red" ;
+                            // cant apply bg-${badgeColor}-400
                             return (
 
                                 <TableRow>
                                     <TableCell>{item.job.title}</TableCell>
                                     <TableCell>{item?.job?.company?.name ? item.job.company.name : "NA"}</TableCell>
-                                    <TableCell className="font-medium"><Badge className="p-2 text-[1rem]">{item.status}</Badge></TableCell>
+                                    {console.log(`bg-${badgeColor}-400`)}
+                                    <TableCell className="font-medium"><Badge className={`p-2 text-[0.8rem] hover:cursor-pointer`}>{item.status} </Badge></TableCell>
                                     <TableCell>{item.job.position? item.job.position :"NA"}</TableCell>
                                     <TableCell className="font-medium w-[17%] ">{item.createdAt.split("T")[0]}</TableCell>
                                     <TableCell className="text-blue-500 cursor-pointer hover:underline" onClick={()=>navigate(`/description/${item.job._id}`) }>Visit Job Description</TableCell>
                                 </TableRow>
-                            )
+                )
 
                         })
                     }
-                </TableBody>
-            </Table>
+            </TableBody>
+        </Table>
 
-        </div>
+        </div >
     )
 }
 

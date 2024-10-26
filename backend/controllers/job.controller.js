@@ -38,7 +38,7 @@ export const getAllJobs = async (req, res) => {
         }
         // let jobs = await Job.find().populate("company")
         let jobs = await Job.find(query).populate("company");
-        console.log('jobs', jobs)
+        // console.log('jobs', jobs)
         if (!jobs) {
             alert("not found")
             return res.status(400).json({
@@ -95,7 +95,7 @@ export const getAdminJob = async (req, res) => {
                 success: false,
             })
         }
-        console.log(job);
+        // console.log(job);
 
         return res.status(200).json({
             message: "details of job posted by admin : ",

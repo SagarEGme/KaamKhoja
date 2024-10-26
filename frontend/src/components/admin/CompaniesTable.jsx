@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Edit2, MoreHorizontal } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import {motion} from "framer-motion"
 
 const CompaniesTable = () => {
     const { allCompanies,searchCompanyByText } = useSelector(store => store.company);
@@ -31,11 +32,15 @@ const CompaniesTable = () => {
                 <TableBody>
                     {
                         filterCompany.map((company) => (
-                            <tr>
-
+                            <motion.tr
+                                initial={{y:100, opacity:0}}
+                                animate={{y:0, opacity:1}}
+                                exit={{y:-100, opacity:0}}
+                                transition={{duration:0.5}}
+                            >
                                 <TableCell>
                                     <Avatar>
-                                        <AvatarImage src={company.logo} />
+                                        <AvatarImage src={company.logo}  />
                                     </Avatar>
                                 </TableCell>
                                 <TableCell>{company.name}</TableCell>
@@ -51,7 +56,7 @@ const CompaniesTable = () => {
                                         </PopoverContent>
                                     </Popover>
                                 </TableCell>
-                            </tr>
+                            </motion.tr>
 
                         ))
                     }

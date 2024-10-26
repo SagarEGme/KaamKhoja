@@ -7,25 +7,23 @@ import useGetAllJobs from '@/hooks/useGetAllJobs';
 import { setSearchQuery } from '@/redux/jobSlice';
 import { Button } from './ui/button';
 import { Search } from 'lucide-react';
+import { BiError } from 'react-icons/bi';
+
 
 
 const Browse = () => {
     useGetAllJobs();
     const { allJobs, searchQuery } = useSelector(store => store.job);
-    
+
     const dispatch = useDispatch();
     const [searchJobValue, setSearchJobValue] = useState("")
     const submitQueryHandler = () => {
-        console.log(searchJobValue)
         dispatch(setSearchQuery(searchJobValue));
     }
     const [filterJobs, setFilterJobs] = useState([]);
     useEffect(() => {
         if (searchQuery) {
-
-            console.log("all jobs", allJobs)
-            const filteredJobs = allJobs.filter((job) => (job?.title?.toLowerCase().includes(searchQuery.toLowerCase()) || job?.description?.toLowerCase().includes(searchQuery.toLowerCase()) || job?.company?.name.toLowerCase().includes(searchQuery.toLowerCase())));
-            console.log("filtered job", filteredJobs)
+            const filteredJobs = allJobs.filter((job) => (job?.title?.toLowerCase().includes(searchQuery.toLowerCase()) || job?.description?.toLowerCase().includes(searchQuery.toLowerCase()) || job?.company?.name.toLowerCase().includes(searchQuery.toLowerCase()) || job?.company?.location.toLowerCase().includes(searchQuery.toLowerCase())));
             // const filteredJobs = filterJobs.filter((job)=>job?.title?.toLowerCase()===searchQuery.toLowerCase() || job?.description?.toLowerCase()===searchQuery.toLowerCase() || job?.company?.name.toLowerCase()===searchQuery.toLowerCase());
             // I was filtering on filterJobs . but it was the filtered item so i was gettgin filterjobs as null.
             // it should be allJobs on which filter should be performed.
@@ -33,17 +31,10 @@ const Browse = () => {
         } else {
             setFilterJobs(allJobs)
         }
-
-    }, [searchQuery, allJobs]);
-    // useEffect(()=>{
-    //     dispatch(setSearchQuery(""));
-    // },[])
-
-
-
+    }, [searchQuery, allJobs, filterJobs]);
 
     return (
-        <div>
+        <div className='p-3'>
             <Navbar />
             <div className='max-w-7xl mx-auto my-10'>
                 <div className='flex justify-between'>
@@ -61,6 +52,19 @@ const Browse = () => {
                         </Button>
                     </div>
                 </div>
+                {
+                    !filterJobs.length && <div>
+                        <div style={{
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', padding: '20px',
+                            backgroundColor: '#f8d7da', borderRadius: '10px', color: '#721c24', border: '1px solid #f5c6cb',
+                            maxWidth: '400px', margin: 'auto',marginTop:'40px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                        }}>
+                            <BiError size={48} />
+                            <p style={{ fontSize: '18px', fontWeight: 'bold' }}>No Results Found</p>
+                            <p style={{ fontSize: '14px', color: '#721c24' }}>Try a different search term ! You can search according to job title , company name , and location of job.</p>
+                        </div>
+                    </div>
+                }
                 <div className='grid grid-cols-3 gap-4'>
                     {
                         filterJobs.map((job) => {

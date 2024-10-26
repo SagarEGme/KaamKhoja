@@ -3,18 +3,18 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
-const ProtectedRoute = ({ childeren }) => {
+const ProtectedRoute = ({ children }) => {
     const { user } = useSelector(store => store.auth);
-    console.log(user)
     const navigate = useNavigate();
     useEffect(() => {
-        if (user===null && user.role !== "recruiter") {
+        if (user===null || user.role !== "recruiter") {
             console.log("cant access page")
             navigate("/")
         }
-    },[])
+        console.log("protected route");
+    },[user])
     return <>
-        {childeren}
+        {children}
     </>
 }
 
