@@ -4,6 +4,7 @@ import { Label } from './ui/label'
 import { useDispatch } from 'react-redux'
 import { setSearchQuery } from '@/redux/jobSlice'
 import { Button } from './ui/button'
+import { useNavigate } from 'react-router-dom'
 
 const fitlerData = [
   {
@@ -15,25 +16,31 @@ const fitlerData = [
     array: ["Frontend Developer", "Backend Developer", "Engineer"]
   },
   {
-    fitlerType: "Salary",
-    array: ["0-40k", "42-1lakh", "1lakh to 5lakh"]
+    fitlerType: "Salary in thousands",
+    array: ["0-above", "10-above", "100-above"]
   },
 ]
 
 const FilterCard = () => {
-  const dispatch  = useDispatch();
-  const [selectedValue,setSelectedValue] = useState("")
-  const clearSearhcHandler=()=>{
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const [selectedValue, setSelectedValue] = useState("")
+  const clearSearhcHandler = () => {
     dispatch(setSearchQuery(""));
     setSelectedValue("")
-}
-  const changeHandler=(value)=>{
+    navigate("/jobs")
+  }
+  const changeHandler = (value) => {
     setSelectedValue(value)
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(setSearchQuery(selectedValue));
-  },[selectedValue])
+  }, [selectedValue])
+
+  const trimSalary=(salary)=>{
+    return salary.split("-")[0];
+  }
   return (
     <div className='mr-4 pl-3'>
       <h1 className="font-bold text-xl">Filter Jobs</h1>
@@ -47,10 +54,14 @@ const FilterCard = () => {
               {
                 data.array.map((item, ind) => {
                   return (
-                      <div className='flex gap-2 my-1 pl-2' key={ind}> 
-                        <RadioGroupItem value={item} id={index-ind} />
-                        <Label htmlFor={index-ind}>{item}</Label>
-                      </div>
+                    <div className='flex gap-2 my-1 pl-2' key={ind}>
+                      {data.fitlerType !== "Salary in thousands" ? <RadioGroupItem value={item} id={index - ind} /> :
+                        <RadioGroupItem value={trimSalary(item)} id={index - ind}/>
+                      }
+                      {console.log(trimSalary(item))}
+
+                      <Label htmlFor={index - ind}>{item}</Label>
+                    </div>
                   )
                 })
               }

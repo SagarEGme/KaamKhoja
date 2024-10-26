@@ -26,6 +26,21 @@ export const postJob = async (req, res) => {
     }
 }
 
+export const deleteJobById = async (req,res)=>{
+    try {
+        const jobId = req.params.id;
+        console.log(jobId)
+        await Job.findByIdAndDelete(jobId);
+        // await Job.save();
+        return res.json({
+            message:"Job deleted successfully.",
+            success:true
+        })
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
 //for students
 export const getAllJobs = async (req, res) => {
     try {
