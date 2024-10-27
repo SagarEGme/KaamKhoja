@@ -44,6 +44,8 @@ export const deleteJobById = async (req,res)=>{
 //for students
 export const getAllJobs = async (req, res) => {
     try {
+        // This query is useful for full-text search in MongoDB. It checks if the keyword appears in either the
+        //  title or description fields of a document, regardless of letter case.
         const keyword = req.query.keyword || "";
         const query = {
             $or: [

@@ -11,10 +11,9 @@ dotenv.config({});
 
 const app = express();
 
-
 //middlewares
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json()) // to accept or send json values
+app.use(express.urlencoded({ extended: true })) // for form data
 app.use(cookieParser())
 const corsOption = {
     origin: 'http://localhost:5173',
@@ -22,18 +21,12 @@ const corsOption = {
     credentials: true,
 }
 app.use(cors(corsOption))
-
+ 
 //apis over here
 app.use("/api/v1/user", userRoute)
 app.use("/api/v1/company", companyRoute)
 app.use("/api/v1/job",jobRoute)
 app.use("/api/v1/application",applicationRoute)
-
-app.get("/", (req, res) => {
-    return res.json({
-        message: "welcome to homepage",
-    })
-})
 
 const PORT = process.env.PORT || 2000;
 

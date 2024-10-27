@@ -113,7 +113,7 @@ export const updateStatus = async (req, res) => {
                 success: false
             })
         };
-        console.log(applicant)
+        // console.log(applicant)
         applicant.status = status.toLowerCase();
         applicant.save();
         return res.status(200).json({

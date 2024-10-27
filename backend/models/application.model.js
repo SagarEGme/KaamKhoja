@@ -8,6 +8,7 @@ const applicationSchema = new mongoose.Schema({
         required:true
     },
     applicant:{
+        // users who have applied for the job
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         required:true,

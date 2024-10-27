@@ -109,12 +109,12 @@ export const updateProfile = async (req, res) => {
         const { fullName, email, phoneNumber, bio, skills } = req.body;
 
         const file = req.file;
-        console.log(file);
+        // console.log(file);
         
         const fileUri = getDataUri(file);
-        console.log(fileUri);
+        // console.log(fileUri);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content,{resource_type: "raw"});
-        console.log(cloudResponse);
+        // console.log(cloudResponse);
 
 
 
