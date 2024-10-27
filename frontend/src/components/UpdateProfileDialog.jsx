@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { useDispatch, useSelector } from 'react-redux'
@@ -71,7 +71,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     return (
         <div>
             <Dialog open={open}>
-                <DialogContent className="sm:max-w-[425px]" onInteractOutside={() => setOpen(false)}>
+                <DialogContent className="max-w-[400px]" onInteractOutside={() => setOpen(false)}>
                     <DialogHeader>
                         <DialogTitle>Update Profile</DialogTitle>
                     </DialogHeader>

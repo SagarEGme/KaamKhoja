@@ -22,12 +22,12 @@ const Hero = () => {
         navigate("/browse");
     }
     return (
-        <div className='text-center'>
-            <div className='flex flex-col gap-5 my-10'>
-                <span className=' mx-auto px-4 py-2 rounded-full bg-gray-100 text-[#F83002] font-medium'>Kaam Khoja Sajilo jiwan roja</span>
-                <h1 className='text-5xl font-bold'>Search, Apply & <br /> Find Your <span className='text-[#6A38C2]'>Dream Job</span></h1>
-                <p>Leading website in Nepal to find all kind of jobs - full time, part time <br/>- for students,graduates and others.</p>
-                <div className='flex w-[40%] shadow-lg border border-gray-200 pl-3 rounded-full items-center gap-4 mx-auto'>
+        <div className='text-center '>
+            <div className='flex max-w-fit ml-auto sm:max-w-6xl mx-auto flex-col gap-5 my-2'>
+                <span className=' mx-auto px-3 py-2 rounded-full bg-gray-100 text-[#F83002] font-medium'>Kaam Khoja Sajilo jiwan roja</span>
+                <h1 className='text-3xl md:text-5xl font-bold'>Search, Apply & <br /> Find Your <span className='text-[#6A38C2]'>Dream Job</span></h1>
+                <p className='text-xs text-gray-700 sm:text-sm'>Leading website in Nepal to find all kind of jobs - full time, part time <br/>- for students,graduates and others.</p>
+                <div className='flex md:w-[40%] shadow-lg border border-gray-200 pl-3 rounded-full items-center gap-4 mx-auto'>
                     <input
                         type="text"
                         placeholder='Find your dream job'

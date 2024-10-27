@@ -58,7 +58,6 @@ const FilterCard = () => {
                       {data.fitlerType !== "Salary in thousands" ? <RadioGroupItem value={item} id={index - ind} /> :
                         <RadioGroupItem value={trimSalary(item)} id={index - ind}/>
                       }
-                      {console.log(trimSalary(item))}
 
                       <Label htmlFor={index - ind}>{item}</Label>
                     </div>

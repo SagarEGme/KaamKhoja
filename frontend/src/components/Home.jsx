@@ -14,11 +14,11 @@ const Home = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (user?.role === 'recruiter') {
-      // navigate("/admin/companies");
+      navigate("/admin/companies");
     }
   }, []);
   return (
-    <div>
+    <div className='max-w-6xl mx-auto'>
         <Navbar />
         <Hero />
         <CatergoryCarousel />

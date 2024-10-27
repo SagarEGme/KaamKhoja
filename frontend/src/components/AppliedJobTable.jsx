@@ -30,12 +30,12 @@ const AppliedJobTable = () => {
                             return (
 
                                 <TableRow>
-                                    <TableCell>{item.job.title}</TableCell>
-                                    <TableCell>{item?.job?.company?.name ? item.job.company.name : "NA"}</TableCell>
+                                    <TableCell>{item?.job?.title || "No name"}</TableCell>
+                                    <TableCell>{item?.job?.company?.name ? item?.job?.company?.name : "NA"}</TableCell>
                                     {console.log(`bg-${badgeColor}-400`)}
                                     <TableCell className="font-medium"><Badge className={`p-2 text-[0.8rem] hover:cursor-pointer`}>{item.status} </Badge></TableCell>
-                                    <TableCell>{item.job.position? item.job.position :"NA"}</TableCell>
-                                    <TableCell className="font-medium w-[17%] ">{item.createdAt.split("T")[0]}</TableCell>
+                                    <TableCell>{item?.job?.position ? item?.job?.position :"NA"}</TableCell>
+                                    <TableCell className="font-medium w-[17%] ">{item?.createdAt.split("T")[0]}</TableCell>
                                     <TableCell className="text-blue-500 cursor-pointer hover:underline" onClick={()=>navigate(`/description/${item.job._id}`) }>Visit Job Description</TableCell>
                                 </TableRow>
                 )

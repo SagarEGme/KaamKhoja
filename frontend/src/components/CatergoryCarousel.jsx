@@ -23,7 +23,7 @@ const CategoryCarousel = () => {
     const navigate = useNavigate();
     const searchJobHandler = (jobTitle) => {
         dispatch(setSearchQuery(jobTitle));
-        if(jobTitle) navigate("/browse");
+        if (jobTitle) navigate("/browse");
     }
     return (<>
         {/* <div>
@@ -42,16 +42,18 @@ const CategoryCarousel = () => {
             </Carousel>
         </div> */}
         <div>
-            <Carousel className="max-w-3xl mx-auto my-20 ">
-                <CarouselContent className="-ml-2 md:-ml-4">
-                        {
-                            allJobs.map((item, index) => (
-                                <CarouselItem className="rounded-full w-full mx-auto pl-2 md:pl-4 flex items-center justify-center basis-1/2 md:basis-1/2 lg:basis-1/3"><Button variant="secondary" className="p-2 w-full font-mono text-lg rounded-full" onClick={()=>searchJobHandler(item?.title)}>{item?.title}</Button></CarouselItem>
-                            ))
-                        }
+            <Carousel className="mx-auto w-full max-w-xl my-20">
+                <CarouselContent>
+                    {
+                       allJobs?.map((cat, index) => (
+                            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                                <Button onClick={() => searchJobHandler(cat?.title)} variant="outline" className="rounded-full w-full">{cat?.title}</Button>
+                            </CarouselItem>
+                        ))
+                    }
                 </CarouselContent>
-                <CarouselNext />
                 <CarouselPrevious />
+                <CarouselNext />
             </Carousel>
         </div>
     </>

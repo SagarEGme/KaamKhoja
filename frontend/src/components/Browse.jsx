@@ -8,11 +8,14 @@ import { setSearchQuery } from '@/redux/jobSlice';
 import { Button } from './ui/button';
 import { Search } from 'lucide-react';
 import { BiError } from 'react-icons/bi';
+import Footer from './shared/Footer';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Browse = () => {
     useGetAllJobs();
+    const navigate = useNavigate();
     const { allJobs, searchQuery } = useSelector(store => store.job);
 
     const dispatch = useDispatch();
@@ -33,12 +36,16 @@ const Browse = () => {
         }
     }, [searchQuery, allJobs, filterJobs]);
 
+    const clearSearhcHandler = () => {
+        dispatch(setSearchQuery(""));
+        navigate("/browse")
+      }
     return (
-        <div className='p-3'>
+        <div>
             <Navbar />
             <div className='max-w-7xl mx-auto my-10'>
-                <div className='flex justify-between'>
-                    <h1 className='font-bold text-xl my-10'>Search Results {searchQuery ? `for ${searchQuery}` : ""} ({filterJobs.length})</h1>
+                <div className='flex justify-between px-2 gap-3 md:gap-3 flex-col sm:flex-row'>
+                    <h1 className='font-bold text-sm md:text-xl mt-10'>Search Results {searchQuery ? `for ${searchQuery}` : ""} ({filterJobs.length})</h1>
                     <div className='flex items-center '>
                         <input
                             type="text"
@@ -47,7 +54,7 @@ const Browse = () => {
                             className='rounded-l-full border border-gray-300 border-r-transparent p-2 w-full'
 
                         />
-                        <Button onClick={submitQueryHandler} className="rounded-r-full bg-[#6A38C2]">
+                        <Button onClick={submitQueryHandler} className="p-3 rounded-r-full bg-[#6A38C2]">
                             <Search className='h-5 w-5' />
                         </Button>
                     </div>
@@ -62,10 +69,12 @@ const Browse = () => {
                             <BiError size={48} />
                             <p style={{ fontSize: '18px', fontWeight: 'bold' }}>No Results Found</p>
                             <p style={{ fontSize: '14px', color: '#721c24' }}>Try a different search term ! You can search according to job title , company name , and location of job.</p>
+                        <Button className="mt-4 p-2" onClick={clearSearhcHandler}>Clear Search</Button>
                         </div>
+                       
                     </div>
                 }
-                <div className='grid grid-cols-3 gap-4'>
+                <div className='grid md:grid-cols-3 gap-4'>
                     {
                         filterJobs.map((job) => {
                             return (
@@ -76,6 +85,7 @@ const Browse = () => {
                 </div>
 
             </div>
+            <Footer/>
         </div>
     )
 }
