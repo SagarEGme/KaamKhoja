@@ -9,6 +9,10 @@ import jobRoute from "./routes/job.route.js"
 import applicationRoute from "./routes/application.route.js"
 dotenv.config({});
 
+//deploy
+import path from "path";
+const _dirName = path.resolve();
+
 const app = express();
 
 //middlewares
@@ -21,7 +25,7 @@ const corsOption = {
     credentials: true,
 }
 app.use(cors(corsOption))
- 
+
 //apis over here
 app.use("/api/v1/user", userRoute)
 app.use("/api/v1/company", companyRoute)
@@ -30,6 +34,10 @@ app.use("/api/v1/application",applicationRoute)
 
 const PORT = process.env.PORT || 2000;
 
+app.use(express.static(path.join(_dirName,"/frontend/dist")));
+app.get("*",(_,res)=>{
+    res.sendFile(path.resolve(_dirName,"frontend","dist","index.html"))
+})
 app.listen(PORT, () => {
     connectDB();
     console.log(`server running at port ${PORT}`)
