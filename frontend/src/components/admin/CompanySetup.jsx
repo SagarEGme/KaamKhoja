@@ -31,7 +31,7 @@ const CompanySetup = () => {
   }
   const changeFileHandler = (e) => {
     const file = e.target.files?.[0];
-    setInput({ ...input, file })
+    setInput({ ...input, logo:file })
   }
   useEffect(() => {
     setInput({
@@ -64,7 +64,7 @@ const CompanySetup = () => {
         withCredentials: true
       });
       if (res?.data?.success) {
-        dispatch(setSingleCompany(res.data.company))
+        dispatch(setSingleCompany(res?.data?.company))
         toast.success(res.data.message);
         navigate("/admin/companies");
       }

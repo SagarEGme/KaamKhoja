@@ -12,14 +12,14 @@ const Footer = () => {
           </div>
           
           <div className="flex space-x-4 ">
-            <a href="https://facebook.com/" className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110 rounded-full" aria-label="Facebook">
+            <a href="https://www.linkedin.com/in/sagarregmi987/" className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110" aria-label="LinkedIn">
+            <FaLinkedin/>
+            <a href="https://github.com/SagarEGme" className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110 rounded-full" aria-label="Facebook">
             <FaGithub/>
             </a>
-            <a href="https://twitter.com" className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110" aria-label="Twitter">
+            <a href="https://www.facebook.com/sagar07regmi/" className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110" aria-label="Twitter">
             <FaFacebook/>
             </a>
-            <a href="https://linkedin.com" className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110" aria-label="LinkedIn">
-            <FaLinkedin/>
             </a>
           </div>
         </div>
