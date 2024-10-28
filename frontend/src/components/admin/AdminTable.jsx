@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux'
 import { JOB_API_END_POINT } from '@/utils/constants'
 import { toast } from 'sonner'
 import axios from 'axios'
-import useGetAllAdminJobs from '@/hooks/useGetAllAdminJobs'
 
 const AdminTable = () => {
     const { allAdminJobs, searchJobByText } = useSelector(store => store.job)

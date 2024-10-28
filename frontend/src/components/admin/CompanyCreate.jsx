@@ -16,7 +16,7 @@ const CompanyCreate = () => {
   const [companyName,setCompanyName] = useState("");
   const registerNewCompany = async ()=>{
     try {
-      const res = await axios.post(`${COMPANY_API_END_POINT}/register`,{companyName},{
+      const res = await axios.post("https://kaamkhoja.onrender.com/api/v1/company/register",{companyName},{
         headers:{
           'Content-Type':'application/json'
         },

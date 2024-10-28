@@ -20,7 +20,7 @@ app.use(express.json()) // to accept or send json values
 app.use(express.urlencoded({ extended: true })) // for form data
 app.use(cookieParser())
 const corsOption = {
-    origin: 'http://localhost:5173',
+    origin: 'https://kaamkhoja.onrender.com',
     methods: ['GET', 'POST', 'PUT','DELETE'],
     credentials: true,
 }
