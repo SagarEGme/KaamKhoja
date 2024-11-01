@@ -48,15 +48,15 @@ const Navbar = () => {
                 </div>
                 {
                     !user ? (
-                        <div className="w-20">
+                        <div className="w-50">
                             <ul className="flex w-5 gap-2">
-                                <Link to="/login"><Button variant="outline" className="w-6 h-6 text-[10px]">Login</Button></Link>
-                                <Link to="/signup"> <Button className="bg-zinc-700 hover:bg-zinc-950 w-9 h-6 text-[9px]">Signup</Button></Link>
+                                <Link to="/login"><Button variant="outline" className="w-6 h-6 sm:w-12 sm:h-12 text-[10px] sm:text-[20px]">Login</Button></Link>
+                                <Link to="/signup"> <Button className="bg-zinc-700 hover:bg-zinc-950 w-9 sm:w-12 sm:h-12 h-6 text-[9px] sm:text-[20px]">Signup</Button></Link>
                             </ul>
                         </div>
                     ) : (
 
-                        <div className="">
+                        <div>
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <Avatar className="cursor-pointer">
