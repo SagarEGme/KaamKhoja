@@ -10,16 +10,15 @@ const Footer = () => {
             <h2 className="text-[0.9rem] sm:text-xl font-bold">Kaam Khoja</h2>
             <p className="text-xs sm:text-sm">Created by Sagar Regmi.</p>
           </div>
-          
+
           <div className="flex space-x-4 ">
-            <a href="https://www.linkedin.com/in/sagarregmi987/" className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110" aria-label="LinkedIn">
-            <FaLinkedin/>
+            <a href="https://www.linkedin.com/in/sagarregmi987/" target='_blank' className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110" aria-label="LinkedIn">
+              <FaLinkedin /></a>
             <a href="https://github.com/SagarEGme" className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110 rounded-full" aria-label="Facebook">
-            <FaGithub/>
+              <FaGithub />
             </a>
-            <a href="https://www.facebook.com/sagar07regmi/" className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110" aria-label="Twitter">
-            <FaFacebook/>
-            </a>
+            <a href="https://www.facebook.com/sagar07regmi/" target='_blank' className="text-xl md:text-3xl hover:text-blue-400 hover:scale-x-110" aria-label="Twitter">
+              <FaFacebook />
             </a>
           </div>
         </div>
