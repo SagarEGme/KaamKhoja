@@ -24,7 +24,7 @@ const Navbar = () => {
     }
     return (
         <div>
-            <div className=' flex justify-between items-center mx-auto max-w-7xl h-16 p-4 overflow-x-hidden'>
+            <div className=' flex justify-around items-center mx-auto max-w-7xl h-16 p-4 overflow-x-hidden'>
                 <div className="cursor-pointer" onClick={() => navigate("/")}>
                     <h1 className="text-md md:text-2xl font-bold uppercase "><span className="text-[#eb2525]">Kaam</span><span className='text-[#bd25eb]'>khoja</span></h1>
                 </div>
@@ -48,7 +48,7 @@ const Navbar = () => {
                 </div>
                 {
                     !user ? (
-                        <div className="w-16 flex items-start justify-start">
+                        <div className="w-16 pr-4 flex items-start justify-start">
                             <ul className="flex w-10 gap-2">
                                 <Link to="/login"><Button variant="outline" className="w-6 h-6 sm:w-12 sm:h-9 text-[10px] sm:text-[14px]">Login</Button></Link>
                                 <Link to="/signup"> <Button className="bg-zinc-700 hover:bg-zinc-950 w-9 sm:w-14 sm:h-9 h-6 text-[9px] sm:text-[14px]">Signup</Button></Link>
