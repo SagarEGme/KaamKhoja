@@ -48,10 +48,10 @@ const Navbar = () => {
                 </div>
                 {
                     !user ? (
-                        <div className="w-auto">
+                        <div className="w-20">
                             <ul className="flex gap-2">
-                                <Link to="/login"><Button variant="outline" className="w-6 h-6 sm:w-12 sm:h-12 text-[10px] sm:text-[14px]">Login</Button></Link>
-                                <Link to="/signup"> <Button className="bg-zinc-700 hover:bg-zinc-950 w-9 sm:w-20 sm:h-12 h-6 text-[9px] sm:text-[12px]">Signup</Button></Link>
+                                <Link to="/login"><Button variant="outline" className="w-6 h-6 sm:w-12 sm:h-9 text-[10px] sm:text-[14px]">Login</Button></Link>
+                                <Link to="/signup"> <Button className="bg-zinc-700 hover:bg-zinc-950 w-9 sm:w-14 sm:h-9 h-6 text-[9px] sm:text-[14px]">Signup</Button></Link>
                             </ul>
                         </div>
                     ) : (
