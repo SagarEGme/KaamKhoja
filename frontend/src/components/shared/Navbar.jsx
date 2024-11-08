@@ -24,7 +24,7 @@ const Navbar = () => {
     }
     return (
         <div>
-            <div className=' flex justify-around items-center mx-auto max-w-7xl h-16 p-4 overflow-x-hidden'>
+            <div className=' flex justify-around items-center mx-auto max-w-7xl h-16 p-4'>
                 <div className="cursor-pointer" onClick={() => navigate("/")}>
                     <h1 className="text-md md:text-2xl font-bold uppercase "><span className="text-[#eb2525]">Kaam</span><span className='text-[#bd25eb]'>khoja</span></h1>
                 </div>
